@@ -1,6 +1,19 @@
 #Dawid Wachecki 254890
 #Kacper Skoczylas 254864
 #Zadanie 1: metoda bisekcji, reguła falsi, wariant A
+import algorytmy
+
+def petla(warunek):
+    if (warunek == 1):
+        #spełnienie konkretnej dokładności
+        dokladnosc = input("Podaj dokladnosc: ")
+
+    elif (warunek == 2):
+        #konkretna liczba iteracji
+        liczbaIter = input("Podaj liczbę iteracji: ")
+
+    else:
+        print("\nPodano błędną wartość")
 
 def menu():
     print("================================================")
@@ -27,6 +40,8 @@ def menu():
     print("1. spełnienie warunku nałożonego na dokładność")
     print("2. osiągnięcie zadanej liczby iteracji")
     wyboruWarunku = input("WYBRANY WARUNEK: ")
+
+    print(algorytmy.wielomian(4, [5,0,-2,3],4))
 
 #jak to by zrobić najbardziej optymalnie?
 #osobna funkcja z instukcją warunkową co do kryterium zatrzymania algorytmu?
