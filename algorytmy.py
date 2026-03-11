@@ -17,7 +17,7 @@ def wielomian(x):
 
 #skoro to taka prosta funkcja to może ją wywalić? i po prostu import math dać? jak tak to te złożone może też? albo zmienić na inne
 def trygonometryczna(x):
-    y = cos(x)
+    y = cos(x+6)
     return y
 
 def wykladnicza(x):
@@ -51,6 +51,7 @@ def bisekcja(f,a,b):
     if (f(a)*f(b) >= 0):
         print("Podano nieprawidłowy przedział, nie da się wykorzystać metody bisekcji")
         return
+    #x0 to przybliżenie miejsca zerowego, które wyznaczone jest z początkowych wartości a i b
     x0 = (a+b)/2
     if (f(x0) == 0):
         print("Pierwiastek został znaleziony")
@@ -58,5 +59,20 @@ def bisekcja(f,a,b):
         a = x0
     elif (f(x0)*f(a) < 0):
         b = x0
-    print(a,b,"\n")
-    return a,b
+
+    #x1 to przybliżenie po przejściu przez algorytm, jeśli pierwiastek został znaleziony to x0 = x1
+    x1 = (a+b)/2
+    print(a, b, x0, x1, "\n")
+    return a,b,x0,x1
+
+def regulaFalsi(f,a,b):
+    x0 = a - f(a)*(b-a)/(f(b)-f(a))
+    if (f(x0) == 0):
+        print("Pierwiastek został znaleziony")
+    elif (f(x0)*f(b) < 0):
+        a = x0
+    elif (f(x0)*f(a) < 0):
+        b = x0
+    x1 = a - f(a) * (b - a) / (f(b) - f(a))
+    print(a, b, x0, x1, "\n")
+    return a,b,x0,x1

@@ -6,8 +6,10 @@ import algorytmy as alg
 def petla(warunek, wyborFunkcji, a, b):
     if (warunek == 1):
         #spełnienie konkretnej dokładności
-        dokladnosc = input("Podaj dokladnosc: ")
-
+        dokladnosc = float(input("Podaj dokladnosc: "))
+        a,b,x0,x1 = alg.bisekcja(wybranaFunkcja(wyborFunkcji), a, b)
+        while (abs(x1-x0) > dokladnosc):
+            a, b, x0, x1 = alg.bisekcja(wybranaFunkcja(wyborFunkcji), a, b)
     elif (warunek == 2):
         #konkretna liczba iteracji
         liczbaIter = int(input("Podaj liczbę iteracji: "))
@@ -60,12 +62,5 @@ def menu():
     wyboruWarunku = int(input("WYBRANY WARUNEK: "))
 
     petla(wyboruWarunku, wyborFunkcji, a, b)
-
-#jak to by zrobić najbardziej optymalnie?
-#osobna funkcja z instukcją warunkową co do kryterium zatrzymania algorytmu?
-#tylko przy założeniu że ten algorytm bisekcji robimy jako osobną funkcje to jak uwzględnić ten wybór?
-#po prostu instrukcja warunkowa w głównej pętli?
-#chyba że właśnie nie bo dla jednej wersji byłałby pętla while a dla drugiej pętla for to może
-#instrukcja warunkowa z tymi pętlami i dopiero wewnątrz zdefiniowana bisekcja?
 
 menu()
