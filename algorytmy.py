@@ -47,10 +47,6 @@ def zlozWszystko(x):
     return y
 
 def bisekcja(f,a,b):
-    #ten warunek to może do maina przenieść, żeby było bardziej OPTYMALNIE
-    if (f(a)*f(b) >= 0):
-        print("Podano nieprawidłowy przedział, nie da się wykorzystać metody bisekcji")
-        return
     #x0 to przybliżenie miejsca zerowego, które wyznaczone jest z początkowych wartości a i b
     x0 = (a+b)/2
     if (f(x0) == 0):
@@ -62,7 +58,6 @@ def bisekcja(f,a,b):
 
     #x1 to przybliżenie po przejściu przez algorytm, jeśli pierwiastek został znaleziony to x0 = x1
     x1 = (a+b)/2
-    print(a, b, x0, x1, "\n")
     return a,b,x0,x1
 
 def regulaFalsi(f,a,b):
@@ -74,5 +69,4 @@ def regulaFalsi(f,a,b):
     elif (f(x0)*f(a) < 0):
         b = x0
     x1 = a - f(a) * (b - a) / (f(b) - f(a))
-    print(a, b, x0, x1, "\n")
     return a,b,x0,x1
