@@ -1,4 +1,5 @@
-from math import cos
+from numpy import cos
+
 
 #DEFINICJE PRZYKŁADOWE FUNKCJI
 #wielomian obliczany metodą hornera
@@ -22,18 +23,18 @@ def trygonometryczna(x):
 
 def wykladnicza(x):
     #niby pow() zakazane, ale nikt nie powiedział, że x nie może być całkowite, więc chyba można korzystać?
-    #y = 3.14 do potęgi x
-    y = (3.14)**x
+    #y = 3.14 do potęgi x - 5
+    y = (3.14)**x - 5
     return y
 
 def zlozWielomianTryg(x):
-    #y = cos(7x^3 - 6x)
-    y = trygonometryczna(horner(x, [7,0,0,-6,0], 5))
+    #y = cos(7x^3 - 6x + 6)
+    y = trygonometryczna(horner(x, [7,0,-6,0], 4))
     return y
 
 def zlozTrygWykl(x):
-    #y = 3.14 do potęgi cosinus x
-    y = wykladnicza(trygonometryczna(x))
+    #y = 3.14 do potęgi cos(x+6) - 1.5
+    y = (3.14)**trygonometryczna(x) - 1.5
     return y
 
 def zlozWielomianWykl(x):
