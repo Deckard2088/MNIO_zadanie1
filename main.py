@@ -17,7 +17,6 @@ def podsumowanieInfoDokladnosc(iterB, iterF, xB, xF, dokladnosc):
     print('=' * 57)
     print(f"| {'PIERWIASTEK':>16} | {xB:>16} | {xF:>16}|")
     print('=' * 57)
-    input("")
 
 def podsumowanieInfoIteracje(dokB, dokF, xB, xF, iteracje):
     print("\nPODSUMOWANIE")

@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+from datetime import datetime
 
 
 def wykres_funkcji_z_miejscami_zerowymi(f, a, b, zero_bis, zero_rf, nazwa_funkcji):
@@ -46,6 +47,8 @@ def wykres_funkcji_z_miejscami_zerowymi(f, a, b, zero_bis, zero_rf, nazwa_funkcj
     plt.legend()
     plt.grid(True, alpha=0.3)
     plt.tight_layout()
+    nazwa_pliku = f'wykres_{nazwa_funkcji}_{datetime.now().strftime("%Y%m%d_%H%M%S")}.png'
+    plt.savefig(nazwa_pliku, dpi=150, bbox_inches='tight')
     plt.show()
 
 '''
