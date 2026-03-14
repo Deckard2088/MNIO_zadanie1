@@ -71,7 +71,7 @@ def petla(warunek, a, b, f):
         podsumowanieInfoIteracje(dokladnoscBisekcja, dokladnoscFalsi, x1, xf1, liczbaIter)
     else:
         print("\nPodano błędną wartość")
-    wyk.wykres_funkcji_z_miejscami_zerowymi(f, a, b, x1, xf1, "TEST")
+    wyk.wykres_funkcji_z_miejscami_zerowymi(f, a, b, x1, xf1, "Funkcja")
 
 #wybór funkcji wcześniej był realizowany przez instukcję warunkową if, zastąpiono na słownik
 def wybranaFunkcja(wybor):

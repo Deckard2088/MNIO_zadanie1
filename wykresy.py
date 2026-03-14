@@ -31,6 +31,9 @@ def wykres_funkcji_z_miejscami_zerowymi(f, a, b, zero_bis, zero_rf, nazwa_funkcj
     if a <= 0 <= b:
         plt.axvline(x=0, color='k', linewidth=0.5)
 
+    plt.axvline(x=a, color='orange', linestyle='--', linewidth=1.5, label=f'Przedział [a={a}, b={b}]')
+    plt.axvline(x=b, color='orange', linestyle='--', linewidth=1.5)
+
     plt.plot(zero_bis, f(zero_bis), 'ro', markersize=10, zorder=5,
              label=f'Bisekcja: x = {zero_bis:.6f}')
     plt.plot(zero_rf, f(zero_rf), 'g^', markersize=10, zorder=5,
