@@ -51,10 +51,10 @@ def wykres_funkcji_z_miejscami_zerowymi(f, a, b, zero_bis, zero_rf, nazwa_funkcj
     plt.savefig(nazwa_pliku, dpi=150, bbox_inches='tight')
     plt.show()
 
-'''
- Dodatkowe wykresy - mogą się przydać może do jakiejs analizy do sprawka czy coś
 
- def wykres_zbieznosci(przybliżenia_bis, przybliżenia_rf):
+ #Dodatkowe wykresy - mogą się przydać może do jakiejs analizy do sprawka czy coś
+
+def wykres_zbieznosci(przybliżenia_bis, przybliżenia_rf):
      """Porównanie zbieżności obu metod - przybliżenia w kolejnych iteracjach.
 
      Parametry:
@@ -76,8 +76,8 @@ def wykres_funkcji_z_miejscami_zerowymi(f, a, b, zero_bis, zero_rf, nazwa_funkcj
      plt.tight_layout()
      plt.show()
 
-
- def wykres_bledu(przybliżenia_bis, przybliżenia_rf, wartosc_dokladna):
+'''
+def wykres_bledu(przybliżenia_bis, przybliżenia_rf, wartosc_dokladna):
      """Porównanie błędu bezwzględnego obu metod w kolejnych iteracjach - skala logarytmiczna.
 
      Parametry:
@@ -102,8 +102,8 @@ def wykres_funkcji_z_miejscami_zerowymi(f, a, b, zero_bis, zero_rf, nazwa_funkcj
      plt.grid(True, alpha=0.3)
      plt.tight_layout()
      plt.show()
-
- def wykres_porownanie_iteracji(nazwy_eps, iteracje_bis, iteracje_rf):
+'''
+def wykres_porownanie_iteracji(nazwy_eps, iteracje_bis, iteracje_rf):
      """Wykres słupkowy - porównanie liczby iteracji dla różnych dokładności.
 
      Parametry:
@@ -122,8 +122,7 @@ def wykres_funkcji_z_miejscami_zerowymi(f, a, b, zero_bis, zero_rf, nazwa_funkcj
      plt.ylabel('Liczba iteracji')
      plt.title('Porównanie liczby iteracji dla różnych dokładności')
      plt.xticks(x_pos, nazwy_eps)
-    plt.legend()
-    plt.grid(True, alpha=0.3, axis='y')
+     plt.legend()
+     plt.grid(True, alpha=0.3, axis='y')
      plt.tight_layout()
-    plt.show()
-'''
+     plt.show()

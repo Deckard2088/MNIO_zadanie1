@@ -13,7 +13,8 @@ def horner(x, tablica_wspolczynnikow, dlugosc_tablicy):
 #przykładowy wielomian
 def wielomian(x):
     #y = 4x^3 -6x^2 + 9x
-    y = horner(x, [4,-6,9,0], 4)
+    #y = horner(x, [4,-6,9,0], 4)
+    y = horner(x, [1,-1,-2,1],4)
     return y
 
 #skoro to taka prosta funkcja to może ją wywalić? i po prostu import math dać? jak tak to te złożone może też? albo zmienić na inne
@@ -52,6 +53,7 @@ def bisekcja(f,a,b):
     x0 = (a+b)/2
     if (f(x0) == 0):
         print("Pierwiastek został znaleziony")
+        return a, b, x0, x0
     elif (f(x0)*f(b) < 0):
         a = x0
     elif (f(x0)*f(a) < 0):
@@ -65,6 +67,7 @@ def regulaFalsi(f,a,b):
     x0 = a - f(a)*(b-a)/(f(b)-f(a))
     if (f(x0) == 0):
         print("Pierwiastek został znaleziony")
+        return a,b,x0,x0
     elif (f(x0)*f(b) < 0):
         a = x0
     elif (f(x0)*f(a) < 0):

@@ -11,11 +11,11 @@ def podsumowanieInfoDokladnosc(iterB, iterF, xB, xF, dokladnosc):
     print('=' * 57)
     print("DOKŁADNOŚĆ: ", dokladnosc)
     print('=' * 57)
-    print(f"| {'':>16} | {'METODA BISEKCJA':>16} | {'REGUŁA FALSI':>16}|")
+    print(f"| {'':>16} | {'METODA BISEKCJA':>16} | {'REGUŁA FALSI':>16}")
     print('=' * 57)
-    print(f"| {'LICZBA ITERACJI':>16} | {iterB:>16} | {iterF:>16}|")
+    print(f"| {'LICZBA ITERACJI':>16} | {iterB:>16} | {iterF:>16}")
     print('=' * 57)
-    print(f"| {'PIERWIASTEK':>16} | {xB:>16} | {xF:>16}|")
+    print(f"| {'PIERWIASTEK':>16} | {xB:>16} | {xF:>16}")
     print('=' * 57)
 
 def podsumowanieInfoIteracje(dokB, dokF, xB, xF, iteracje):
@@ -25,26 +25,35 @@ def podsumowanieInfoIteracje(dokB, dokF, xB, xF, iteracje):
     print('=' * 57)
     print("LICZBA ITERACJI: ", iteracje)
     print('=' * 57)
-    print(f"| {'':>16} | {'METODA BISEKCJA':>16} | {'REGUŁA FALSI':>16}|")
+    print(f"| {'':>16} | {'METODA BISEKCJA':>16} | {'REGUŁA FALSI':>16}")
     print('=' * 57)
-    print(f"| {'DOKŁADNOŚĆ':>16} | {dokB:>16} | {dokF:>16}|")
+    print(f"| {'DOKŁADNOŚĆ':>16} | {dokB:>16} | {dokF:>16}")
     print('=' * 57)
-    print(f"| {'PIERWIASTEK':>16} | {xB:>16} | {xF:>16}|")
+    print(f"| {'PIERWIASTEK':>16} | {xB:>16} | {xF:>16}")
     print('=' * 57)
 
+iterBis = []
+iterFalsi = []
+
+przyblizeniaBis = []
+przyblizeniaFalsi = []
+
+liczbEps = []
+
 #na początku programu niech narysuje tę funkcje na przedziale i dopiero potem te algorytmy
-def petla(warunek, a, b, f):
+def petla(warunek, a, b, f, dokladnosc, liczbaIter):
     if (warunek == 1):
         #spełnienie konkretnej dokładności
-        dokladnosc = float(input("Podaj dokladnosc: "))
+        #dokladnosc = float(input("Podaj dokladnosc: "))
         #METODA BISEKCJI
         aBis, bBis = a, b
         x0 = float('inf')
         x1 = -float('inf')
-        liczbaIterBi = 0
+        liczbaIterBis = 0
         while (abs(x1-x0) > dokladnosc):
             aBis, bBis, x0, x1 = alg.bisekcja(f, aBis, bBis)
-            liczbaIterBi += 1
+            liczbaIterBis += 1
+        iterBis.append(liczbaIterBis)
 
         #REGULA FELASI
         aFal, bFal = a, b
@@ -54,11 +63,14 @@ def petla(warunek, a, b, f):
         while (abs(xf1-xf0) > dokladnosc):
             aFal, bFal, xf0, xf1 = alg.regulaFalsi(f, aFal, bFal)
             liczbaIterFal += 1
-        podsumowanieInfoDokladnosc(liczbaIterBi,liczbaIterFal, x1, xf1, dokladnosc)
+        iterFalsi.append(liczbaIterFal)
+        podsumowanieInfoDokladnosc(liczbaIterBis,liczbaIterFal, x1, xf1, dokladnosc)
+
+
 
     elif (warunek == 2):
         #konkretna liczba iteracji
-        liczbaIter = int(input("Podaj liczbę iteracji: "))
+        #liczbaIter = int(input("Podaj liczbę iteracji: "))
         aBis, bBis = a, b
         aFal, bFal = a, b
         x0, x1, xf0, xf1 = float('inf'), -float('inf'), float('inf'), -float('inf')
@@ -70,6 +82,8 @@ def petla(warunek, a, b, f):
         podsumowanieInfoIteracje(dokladnoscBisekcja, dokladnoscFalsi, x1, xf1, liczbaIter)
     else:
         print("\nPodano błędną wartość")
+    przyblizeniaBis.append(x1)
+    przyblizeniaFalsi.append(xf1)
     wyk.wykres_funkcji_z_miejscami_zerowymi(f, a, b, x1, xf1, "Funkcja")
 
 #wybór funkcji wcześniej był realizowany przez instukcję warunkową if, zastąpiono na słownik
@@ -99,6 +113,10 @@ def menu():
     print("6. złozenie wielomianu i wykładniczej")
     print("7. złozenie wszystkich trzech\n")
     wyborFunkcji = int(input("WYBRANA FUNKCJA: "))
+    if (wyborFunkcji < 1 or wyborFunkcji > 8):
+        print("Błąd: wpisano niepoprawny numer.")
+        return
+
     f = wybranaFunkcja(wyborFunkcji)
 
     print("\n================================================")
@@ -108,7 +126,7 @@ def menu():
 
     #zabezpieczenie przedziału
     if (f(a)*f(b) >= 0):
-        print("Podano nieprawidłowy przedział, nie da się wykorzystać metody bisekcji ani reguły Falesi")
+        print("Podano nieprawidłowy przedział, nie da się wykorzystać metody bisekcji ani reguły Falsi")
         return
 
     print("\n================================================")
@@ -116,8 +134,27 @@ def menu():
     print("1. spełnienie warunku nałożonego na dokładność")
     print("2. osiągnięcie zadanej liczby iteracji")
     wyboruWarunku = int(input("WYBRANY WARUNEK: "))
+    dokladnosc = 0
+    liczbaIter = 0
 
-    petla(wyboruWarunku, a, b, f)
+    if (wyboruWarunku == 1):
+        dokladnosc = float(input("Podaj dokladnosc: "))
+    elif (wyboruWarunku == 2):
+        liczbaIter = int(input("Podaj liczbę iteracji: "))
+
+    petla(wyboruWarunku, a, b, f, dokladnosc, liczbaIter)
+
+    #w pętli uruchamiamy funkcję petla(), z warunkiem na dokładność, gdzie każda dokładność jest 10 większa
+    #następnie wyświetlamy liczbę iteracji obu metod dla każdej z tych dokładności
+    for i in range (1,10):
+        petla(1, a, b, f, 10**-i, liczbaIter)
+        liczbEps.append(10**-i)
+    wyk.wykres_porownanie_iteracji(liczbEps, iterBis, iterFalsi)
+
+    for i in range (1, 10):
+        petla(2, a, b, f, dokladnosc, i)
+    wyk.wykres_zbieznosci(przyblizeniaBis, przyblizeniaFalsi)
+
 
 while True:
     menu()
