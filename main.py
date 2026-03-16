@@ -51,7 +51,8 @@ def petla(warunek, a, b, f, dokladnosc, liczbaIter, rysuj_wykres=True):
         x1 = -float('inf')
         liczbaIterBis = 0
         while (abs(x1-x0) > dokladnosc):
-            aBis, bBis, x0, x1 = alg.bisekcja(f, aBis, bBis)
+            aBis, bBis, x0 = alg.bisekcja(f, aBis, bBis)
+            _, _, x1 = alg.bisekcja(f, aBis, bBis)
             liczbaIterBis += 1
         iterBis.append(liczbaIterBis)
 
@@ -61,12 +62,13 @@ def petla(warunek, a, b, f, dokladnosc, liczbaIter, rysuj_wykres=True):
         xf1 = -float('inf')
         liczbaIterFal = 0
         while (abs(xf1-xf0) > dokladnosc):
-            aFal, bFal, xf0, xf1 = alg.regulaFalsi(f, aFal, bFal)
+            aFal, bFal, xf0 = alg.regulaFalsi(f, aFal, bFal)
+            _, _, xf1 = alg.regulaFalsi(f, aFal, bFal)
             liczbaIterFal += 1
         iterFalsi.append(liczbaIterFal)
-        podsumowanieInfoDokladnosc(liczbaIterBis,liczbaIterFal, x1, xf1, dokladnosc)
 
-
+        if (rysuj_wykres):
+            podsumowanieInfoDokladnosc(liczbaIterBis,liczbaIterFal, x1, xf1, dokladnosc)
 
     elif (warunek == 2):
         #konkretna liczba iteracji
@@ -75,11 +77,14 @@ def petla(warunek, a, b, f, dokladnosc, liczbaIter, rysuj_wykres=True):
         aFal, bFal = a, b
         x0, x1, xf0, xf1 = float('inf'), -float('inf'), float('inf'), -float('inf')
         for i in range(liczbaIter):
-            aBis, bBis, x0, x1 = alg.bisekcja(f, aBis, bBis)
-            aFal, bFal, xf0, xf1 = alg.regulaFalsi(f, aFal, bFal)
+            aBis, bBis, x0 = alg.bisekcja(f, aBis, bBis)
+            _, _, x1 = alg.bisekcja(f, aBis, bBis)
+            aFal, bFal, xf0 = alg.regulaFalsi(f, aFal, bFal)
+            _, _, xf1 = alg.regulaFalsi(f, aFal, bFal)
         dokladnoscBisekcja = abs(x1-x0)
         dokladnoscFalsi = abs(xf1-xf0)
-        podsumowanieInfoIteracje(dokladnoscBisekcja, dokladnoscFalsi, x1, xf1, liczbaIter)
+        if (rysuj_wykres):
+            podsumowanieInfoIteracje(dokladnoscBisekcja, dokladnoscFalsi, x1, xf1, liczbaIter)
     else:
         print("\nPodano błędną wartość")
     przyblizeniaBis.append(x1)
@@ -112,10 +117,10 @@ def menu():
     print("================================================\n")
     print("WYBIERZ FUNKCJĘ NIELINIOWĄ:")
     #nazwy zamienić na konkretne funkcje (chyba)
-    print("1. wielomian")
-    print("2. trygonometryczna")
-    print("3. wykładnicza")
-    print("4. złożenie wielomianu i trygonometrycznej")
+    print("1. Wielomian: y = 2x^3 - 5x^2 + 2x")
+    print("2. Trygonometryczna: y = cos(x+6) + 0.5")
+    print("3. Wykładnicza: y = 3.14^(x) - 5")
+    print("4. Złożenie wielomianu i trygonometrycznej: ")
     print("5. złozenie trygonometrycznej i wykładniczej")
     print("6. złozenie wielomianu i wykładniczej")
     print("7. złozenie wszystkich trzech\n")
@@ -157,8 +162,9 @@ def menu():
     #w pętli uruchamiamy funkcję petla(), z warunkiem na dokładność, gdzie każda dokładność jest 10 większa
     #następnie wyświetlamy liczbę iteracji obu metod dla każdej z tych dokładności
     for i in range (1,10):
-        petla(1, a, b, f, 10**-i, liczbaIter, rysuj_wykres=False)
-        liczbEps.append(10**-i)
+        petla(1, a, b, f, 10**-i, liczbaIter, False)
+        #ładne jednolite formatowanie dla dokładności
+        liczbEps.append(f"$10^{{-{i}}}$")
     wyk.wykres_porownanie_iteracji(liczbEps, iterBis, iterFalsi)
 '''
     for i in range (1,10):

@@ -1,8 +1,6 @@
 from numpy import cos
 
-
 EPS_ZERO = 1e-12
-
 
 #DEFINICJE PRZYKŁADOWE FUNKCJI
 #wielomian obliczany metodą hornera
@@ -15,9 +13,8 @@ def horner(x, tablica_wspolczynnikow, dlugosc_tablicy):
 
 #przykładowy wielomian
 def wielomian(x):
-    #y = 4x^3 -6x^2 + 9x
-    #y = horner(x, [4,-6,9,0], 4)
-    y = horner(x, [1,-1,-2,1],4)
+    #y = 2x^3 - 5x^2 + 2x
+    y = horner(x, [2,-5,2,0],4)
     return y
 
 #skoro to taka prosta funkcja to może ją wywalić? i po prostu import math dać? jak tak to te złożone może też? albo zmienić na inne
@@ -33,6 +30,7 @@ def wykladnicza(x):
 
 def zlozWielomianTryg(x):
     #y = cos(7x^3 - 6x + 6)
+    #y=\cos\left(0.5x^{3}+2x^{2}+3\right)+0.5
     y = trygonometryczna(horner(x, [7,0,-6,0], 4))
     return y
 
