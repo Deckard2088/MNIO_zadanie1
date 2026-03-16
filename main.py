@@ -100,6 +100,12 @@ def wybranaFunkcja(wybor):
     return funkcje.get(wybor)
 
 def menu():
+    iterBis.clear()
+    iterFalsi.clear()
+    liczbEps.clear()
+    przyblizeniaBis.clear()
+    przyblizeniaFalsi.clear()
+
     print("================================================")
     print("ZADANIE 1.")
     print("================================================\n")
@@ -143,6 +149,9 @@ def menu():
         liczbaIter = int(input("Podaj liczbę iteracji: "))
 
     petla(wyboruWarunku, a, b, f, dokladnosc, liczbaIter)
+    iterBis.clear()
+    iterFalsi.clear()
+    liczbEps.clear()
 
     #w pętli uruchamiamy funkcję petla(), z warunkiem na dokładność, gdzie każda dokładność jest 10 większa
     #następnie wyświetlamy liczbę iteracji obu metod dla każdej z tych dokładności
@@ -150,11 +159,9 @@ def menu():
         petla(1, a, b, f, 10**-i, liczbaIter)
         liczbEps.append(10**-i)
     wyk.wykres_porownanie_iteracji(liczbEps, iterBis, iterFalsi)
-
-    for i in range (1, 10):
+'''
+    for i in range (1,10):
         petla(2, a, b, f, dokladnosc, i)
     wyk.wykres_zbieznosci(przyblizeniaBis, przyblizeniaFalsi)
-
-
-while True:
-    menu()
+'''
+menu()
