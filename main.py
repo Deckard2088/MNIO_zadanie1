@@ -4,8 +4,10 @@
 import algorytmy as alg
 import wykresy as wyk
 
-def podsumowanieInfoDokladnosc(iterB, iterF, xB, xF, dokladnosc):
+def podsumowanieInfoDokladnosc(a,b, iterB, iterF, xB, xF, dokladnosc):
     print("\nPODSUMOWANIE")
+    print('=' * 57)
+    print("ZAKRES: [",a,",",b,"]")
     print('=' * 57)
     print("WARUNEK: określona dokładność")
     print('=' * 57)
@@ -18,8 +20,10 @@ def podsumowanieInfoDokladnosc(iterB, iterF, xB, xF, dokladnosc):
     print(f"| {'PIERWIASTEK':>16} | {xB:>16} | {xF:>16}")
     print('=' * 57)
 
-def podsumowanieInfoIteracje(dokB, dokF, xB, xF, iteracje):
+def podsumowanieInfoIteracje(a,b,dokB, dokF, xB, xF, iteracje):
     print("\nPODSUMOWANIE")
+    print('=' * 57)
+    print("ZAKRES: [", a, ",", b, "]")
     print('=' * 57)
     print("WARUNEK: określona liczba iteracji")
     print('=' * 57)
@@ -77,10 +81,10 @@ def petla(warunek, a, b, f, dokladnosc, liczbaIter, rysuj_wykres=True):
         iterBis.append(iter_bis)
         iterFalsi.append(iter_falsi)
         if rysuj_wykres:
-            podsumowanieInfoDokladnosc(iter_bis, iter_falsi, x_bis, x_falsi, dokladnosc)
+            podsumowanieInfoDokladnosc(a,b,iter_bis, iter_falsi, x_bis, x_falsi, dokladnosc)
     elif warunek == 2:
         if rysuj_wykres:
-            podsumowanieInfoIteracje(dok_bis, dok_falsi, x_bis, x_falsi, liczbaIter)
+            podsumowanieInfoIteracje(a,b,dok_bis, dok_falsi, x_bis, x_falsi, liczbaIter)
 
     przyblizeniaBis.append(x_bis)
     przyblizeniaFalsi.append(x_falsi)
@@ -125,6 +129,7 @@ def menu():
         return
 
     f = wybranaFunkcja(wyborFunkcji)
+    wyk.wykres_funkcji_z_miejscami_zerowymi(f, None, None, None, None, "Funkcja", zakres=(-12,12))
 
     print("\n================================================")
     print("Miejsca zerowe będą poszukiwane w przedziale [a-b]")
