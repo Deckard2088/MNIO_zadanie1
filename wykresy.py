@@ -35,6 +35,7 @@ def wykres_funkcji_z_miejscami_zerowymi(f, a, b, zero_bis, zero_rf, nazwa_funkcj
     if zakres is not None:
         if zakres[0] <= 0 <= zakres[1]:
             plt.axvline(x=0, color='k', linewidth=0.5)
+            plt.xticks(np.arange(np.floor(x.min()), np.ceil(x.max()) + 1, 1))
     else:
         if a <= 0 <= b:
             plt.axvline(x=0, color='k', linewidth=0.5)
@@ -47,7 +48,10 @@ def wykres_funkcji_z_miejscami_zerowymi(f, a, b, zero_bis, zero_rf, nazwa_funkcj
         plt.plot(zero_rf, f(zero_rf), 'g^', markersize=10, zorder=5,
              label=f'Regula falsi: x = {zero_rf:.6f}')
 
-    plt.ylim(y_min - y_pad, y_max + y_pad)
+    if zakres is not None:
+        plt.ylim(zakres[0], zakres[1])
+    else:
+        plt.ylim(y_min - y_pad, y_max + y_pad)
     plt.xlabel('x')
     plt.ylabel('f(x)')
     plt.title(f'Wykres funkcji z miejscami zerowymi\nf(x) = {nazwa_funkcji}')

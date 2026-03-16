@@ -66,7 +66,7 @@ def uruchom_metode(metoda, f, a, b, warunek, dokladnosc, liczba_iter):
     return wykonane_iteracje, aktualne_x, osiagnieta_dokladnosc
 
 #na początku programu niech narysuje tę funkcje na przedziale i dopiero potem te algorytmy
-def petla(warunek, a, b, f, dokladnosc, liczbaIter, rysuj_wykres=True):
+def petla(warunek, a, b, f, nazwa, dokladnosc, liczbaIter, rysuj_wykres=True):
     wynik_bis = uruchom_metode(alg.bisekcja, f, a, b, warunek, dokladnosc, liczbaIter)
     wynik_falsi = uruchom_metode(alg.regulaFalsi, f, a, b, warunek, dokladnosc, liczbaIter)
 
@@ -89,7 +89,7 @@ def petla(warunek, a, b, f, dokladnosc, liczbaIter, rysuj_wykres=True):
     przyblizeniaBis.append(x_bis)
     przyblizeniaFalsi.append(x_falsi)
     if rysuj_wykres:
-        wyk.wykres_funkcji_z_miejscami_zerowymi(f, a, b, x_bis, x_falsi, "Funkcja")
+        wyk.wykres_funkcji_z_miejscami_zerowymi(f, a, b, x_bis, x_falsi, nazwa)
 
 #wybór funkcji wcześniej był realizowany przez instukcję warunkową if, zastąpiono na słownik
 def wybranaFunkcja(wybor):
@@ -103,6 +103,18 @@ def wybranaFunkcja(wybor):
         7: alg.zlozWszystko
     }
     return funkcje.get(wybor)
+
+def nazwaFunkcji(wybor):
+    nazwa = {
+        1: "2x^3 - 5x^2 + 2x",
+        2: "cos(x+6) + 0.5",
+        3: "3.14^(x) - 5",
+        4: "cos((0.5x^3 + 2x^2) + 6) + 0.5",
+        5: "3.14^(cos(x+6) + 0.5) - 2",
+        6: "3.14^(x^3 + 3x^2 + x) - 5",
+        7: "3.14^(cos((0.1x^3 + 0.6x^2) + 6) + 0.5) - 2"
+    }
+    return nazwa.get(wybor)
 
 def menu():
     iterBis.clear()
@@ -121,7 +133,7 @@ def menu():
     print("3. Wykładnicza: y = 3.14^(x) - 5")
     print("4. Złożenie wielomianu i trygonometrycznej: y = cos((0.5x^3 + 2x^2) + 6) + 0.5")
     print("5. Złozenie trygonometrycznej i wykładniczej: y = 3.14^(cos(x+6) + 0.5) - 2")
-    print("6. Złozenie wielomianu i wykładniczej: y = 3.14^(0.5X^5 + 4x^2) - 5")
+    print("6. Złozenie wielomianu i wykładniczej: y = 3.14^(x^3 + 3x^2 + x) - 5")
     print("7. Złozenie wszystkich trzech: y = 3.14^(cos((0.1x^3 + 0.6x^2) + 6) + 0.5) - 2\n")
     wyborFunkcji = int(input("WYBRANA FUNKCJA: "))
     if (wyborFunkcji < 1 or wyborFunkcji > 7):
@@ -129,7 +141,7 @@ def menu():
         return
 
     f = wybranaFunkcja(wyborFunkcji)
-    wyk.wykres_funkcji_z_miejscami_zerowymi(f, None, None, None, None, "Funkcja", zakres=(-12,12))
+    wyk.wykres_funkcji_z_miejscami_zerowymi(f, None, None, None, None, nazwaFunkcji(wyborFunkcji), zakres=(-6,6))
 
     print("\n================================================")
     print("Miejsca zerowe będą poszukiwane w przedziale [a-b]")
@@ -160,7 +172,7 @@ def menu():
             print("Błąd: liczba iteracji musi być dodatnia.")
             return
 
-    petla(wyboruWarunku, a, b, f, dokladnosc, liczbaIter)
+    petla(wyboruWarunku, a, b, f, nazwaFunkcji(wyborFunkcji), dokladnosc, liczbaIter)
     iterBis.clear()
     iterFalsi.clear()
     liczbEps.clear()
@@ -168,7 +180,7 @@ def menu():
     #w pętli uruchamiamy funkcję petla(), z warunkiem na dokładność, gdzie każda dokładność jest 10 większa
     #następnie wyświetlamy liczbę iteracji obu metod dla każdej z tych dokładności
     for i in range (1,10):
-        petla(1, a, b, f, 10**-i, liczbaIter, False)
+        petla(1, a, b, f, "", 10**-i, liczbaIter, False)
         # ładne jednolite formatowanie dla dokładności
         liczbEps.append(f"$10^{{-{i}}}$")
     wyk.wykres_porownanie_iteracji(liczbEps, iterBis, iterFalsi)

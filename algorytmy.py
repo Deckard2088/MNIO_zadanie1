@@ -38,8 +38,8 @@ def zlozTrygWykl(x):
     return y
 
 def zlozWielomianWykl(x):
-    #y = 3.14^(0.5X^5 + 4x^2) - 5
-    y = wykladnicza(horner(x, [0.5,0,0,4,0,0],6))
+    #y = 3.14^(x^3 + 3x^2 + x) - 5
+    y = wykladnicza(horner(x, [1,3,1,0],4))
     return y
 
 def zlozWszystko(x):
