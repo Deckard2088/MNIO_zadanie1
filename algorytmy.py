@@ -23,20 +23,18 @@ def trygonometryczna(x):
     return y
 
 def wykladnicza(x):
-    #niby pow() zakazane, ale nikt nie powiedział, że x nie może być całkowite, więc chyba można korzystać?
     #y = 3.14 do potęgi x - 5
     y = (3.14)**x - 5
     return y
 
 def zlozWielomianTryg(x):
-    #y = cos(7x^3 - 6x + 6)
-    #y=\cos\left(0.5x^{3}+2x^{2}+3\right)+0.5
-    y = trygonometryczna(horner(x, [7,0,-6,0], 4))
+    #y = cos((0.5x^3 + 2x^2) + 6) + 0.5
+    y = trygonometryczna(horner(x, [0.5,2,0,0], 4))
     return y
 
 def zlozTrygWykl(x):
-    #y = 3.14 do potęgi cos(x+6) - 1.5
-    y = (3.14)**trygonometryczna(x) - 1.5
+    #y = 3.14^(cos(x+6) + 0.5) - 2
+    y = wykladnicza(trygonometryczna(x))+3
     return y
 
 def zlozWielomianWykl(x):

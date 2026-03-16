@@ -34,10 +34,8 @@ def podsumowanieInfoIteracje(dokB, dokF, xB, xF, iteracje):
 
 iterBis = []
 iterFalsi = []
-
 przyblizeniaBis = []
 przyblizeniaFalsi = []
-
 liczbEps = []
 
 
@@ -78,9 +76,11 @@ def petla(warunek, a, b, f, dokladnosc, liczbaIter, rysuj_wykres=True):
     if warunek == 1:
         iterBis.append(iter_bis)
         iterFalsi.append(iter_falsi)
-        podsumowanieInfoDokladnosc(iter_bis, iter_falsi, x_bis, x_falsi, dokladnosc)
+        if rysuj_wykres:
+            podsumowanieInfoDokladnosc(iter_bis, iter_falsi, x_bis, x_falsi, dokladnosc)
     elif warunek == 2:
-        podsumowanieInfoIteracje(dok_bis, dok_falsi, x_bis, x_falsi, liczbaIter)
+        if rysuj_wykres:
+            podsumowanieInfoIteracje(dok_bis, dok_falsi, x_bis, x_falsi, liczbaIter)
 
     przyblizeniaBis.append(x_bis)
     przyblizeniaFalsi.append(x_falsi)
@@ -112,13 +112,13 @@ def menu():
     print("================================================\n")
     print("WYBIERZ FUNKCJĘ NIELINIOWĄ:")
     #nazwy zamienić na konkretne funkcje (chyba)
-    print("1. wielomian")
-    print("2. trygonometryczna")
-    print("3. wykładnicza")
-    print("4. złożenie wielomianu i trygonometrycznej")
-    print("5. złozenie trygonometrycznej i wykładniczej")
-    print("6. złozenie wielomianu i wykładniczej")
-    print("7. złozenie wszystkich trzech\n")
+    print("1. Wielomian: y = 2x^3 - 5x^2 + 2x")
+    print("2. Trygonometryczna: y = cos(x+6) + 0.5")
+    print("3. Wykładnicza: y = 3.14^(x) - 5")
+    print("4. Złożenie wielomianu i trygonometrycznej: y = cos((0.5x^3 + 2x^2) + 6) + 0.5")
+    print("5. Złozenie trygonometrycznej i wykładniczej: y = 3.14^(cos(x+6) + 0.5) - 2")
+    print("6. Złozenie wielomianu i wykładniczej: ")
+    print("7. Złozenie wszystkich trzech\n")
     wyborFunkcji = int(input("WYBRANA FUNKCJA: "))
     if (wyborFunkcji < 1 or wyborFunkcji > 7):
         print("Błąd: wpisano niepoprawny numer.")
@@ -163,8 +163,9 @@ def menu():
     #w pętli uruchamiamy funkcję petla(), z warunkiem na dokładność, gdzie każda dokładność jest 10 większa
     #następnie wyświetlamy liczbę iteracji obu metod dla każdej z tych dokładności
     for i in range (1,10):
-        petla(1, a, b, f, 10**-i, liczbaIter, rysuj_wykres=False)
-        liczbEps.append(10**-i)
+        petla(1, a, b, f, 10**-i, liczbaIter, False)
+        # ładne jednolite formatowanie dla dokładności
+        liczbEps.append(f"$10^{{-{i}}}$")
     wyk.wykres_porownanie_iteracji(liczbEps, iterBis, iterFalsi)
 '''
     for i in range (1,10):
