@@ -41,7 +41,7 @@ przyblizeniaFalsi = []
 liczbEps = []
 
 #na początku programu niech narysuje tę funkcje na przedziale i dopiero potem te algorytmy
-def petla(warunek, a, b, f, dokladnosc, liczbaIter):
+def petla(warunek, a, b, f, dokladnosc, liczbaIter, rysuj_wykres=True):
     if (warunek == 1):
         #spełnienie konkretnej dokładności
         #dokladnosc = float(input("Podaj dokladnosc: "))
@@ -84,7 +84,8 @@ def petla(warunek, a, b, f, dokladnosc, liczbaIter):
         print("\nPodano błędną wartość")
     przyblizeniaBis.append(x1)
     przyblizeniaFalsi.append(xf1)
-    wyk.wykres_funkcji_z_miejscami_zerowymi(f, a, b, x1, xf1, "Funkcja")
+    if rysuj_wykres:
+        wyk.wykres_funkcji_z_miejscami_zerowymi(f, a, b, x1, xf1, "Funkcja")
 
 #wybór funkcji wcześniej był realizowany przez instukcję warunkową if, zastąpiono na słownik
 def wybranaFunkcja(wybor):
@@ -156,7 +157,7 @@ def menu():
     #w pętli uruchamiamy funkcję petla(), z warunkiem na dokładność, gdzie każda dokładność jest 10 większa
     #następnie wyświetlamy liczbę iteracji obu metod dla każdej z tych dokładności
     for i in range (1,10):
-        petla(1, a, b, f, 10**-i, liczbaIter)
+        petla(1, a, b, f, 10**-i, liczbaIter, rysuj_wykres=False)
         liczbEps.append(10**-i)
     wyk.wykres_porownanie_iteracji(liczbEps, iterBis, iterFalsi)
 '''
