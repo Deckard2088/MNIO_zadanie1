@@ -40,52 +40,52 @@ przyblizeniaFalsi = []
 
 liczbEps = []
 
+
+def uruchom_metode(metoda, f, a, b, warunek, dokladnosc, liczba_iter):
+    lewy, prawy = a, b
+    poprzednie_x = float('inf')
+    aktualne_x = -float('inf')
+    wykonane_iteracje = 0
+
+    if warunek == 1:
+        while abs(aktualne_x - poprzednie_x) > dokladnosc:
+            poprzednie_x = aktualne_x
+            lewy, prawy, aktualne_x = metoda(f, lewy, prawy)
+            wykonane_iteracje += 1
+    elif warunek == 2:
+        for _ in range(liczba_iter):
+            poprzednie_x = aktualne_x
+            lewy, prawy, aktualne_x = metoda(f, lewy, prawy)
+            wykonane_iteracje += 1
+    else:
+        return None
+
+    osiagnieta_dokladnosc = abs(aktualne_x - poprzednie_x)
+    return wykonane_iteracje, aktualne_x, osiagnieta_dokladnosc
+
 #na początku programu niech narysuje tę funkcje na przedziale i dopiero potem te algorytmy
 def petla(warunek, a, b, f, dokladnosc, liczbaIter, rysuj_wykres=True):
-    if (warunek == 1):
-        #spełnienie konkretnej dokładności
-        #dokladnosc = float(input("Podaj dokladnosc: "))
-        #METODA BISEKCJI
-        aBis, bBis = a, b
-        x0 = float('inf')
-        x1 = -float('inf')
-        liczbaIterBis = 0
-        while (abs(x1-x0) > dokladnosc):
-            aBis, bBis, x0, x1 = alg.bisekcja(f, aBis, bBis)
-            liczbaIterBis += 1
-        iterBis.append(liczbaIterBis)
+    wynik_bis = uruchom_metode(alg.bisekcja, f, a, b, warunek, dokladnosc, liczbaIter)
+    wynik_falsi = uruchom_metode(alg.regulaFalsi, f, a, b, warunek, dokladnosc, liczbaIter)
 
-        #REGULA FELASI
-        aFal, bFal = a, b
-        xf0 = float('inf')
-        xf1 = -float('inf')
-        liczbaIterFal = 0
-        while (abs(xf1-xf0) > dokladnosc):
-            aFal, bFal, xf0, xf1 = alg.regulaFalsi(f, aFal, bFal)
-            liczbaIterFal += 1
-        iterFalsi.append(liczbaIterFal)
-        podsumowanieInfoDokladnosc(liczbaIterBis,liczbaIterFal, x1, xf1, dokladnosc)
-
-
-
-    elif (warunek == 2):
-        #konkretna liczba iteracji
-        #liczbaIter = int(input("Podaj liczbę iteracji: "))
-        aBis, bBis = a, b
-        aFal, bFal = a, b
-        x0, x1, xf0, xf1 = float('inf'), -float('inf'), float('inf'), -float('inf')
-        for i in range(liczbaIter):
-            aBis, bBis, x0, x1 = alg.bisekcja(f, aBis, bBis)
-            aFal, bFal, xf0, xf1 = alg.regulaFalsi(f, aFal, bFal)
-        dokladnoscBisekcja = abs(x1-x0)
-        dokladnoscFalsi = abs(xf1-xf0)
-        podsumowanieInfoIteracje(dokladnoscBisekcja, dokladnoscFalsi, x1, xf1, liczbaIter)
-    else:
+    if wynik_bis is None or wynik_falsi is None:
         print("\nPodano błędną wartość")
-    przyblizeniaBis.append(x1)
-    przyblizeniaFalsi.append(xf1)
+        return
+
+    iter_bis, x_bis, dok_bis = wynik_bis
+    iter_falsi, x_falsi, dok_falsi = wynik_falsi
+
+    if warunek == 1:
+        iterBis.append(iter_bis)
+        iterFalsi.append(iter_falsi)
+        podsumowanieInfoDokladnosc(iter_bis, iter_falsi, x_bis, x_falsi, dokladnosc)
+    elif warunek == 2:
+        podsumowanieInfoIteracje(dok_bis, dok_falsi, x_bis, x_falsi, liczbaIter)
+
+    przyblizeniaBis.append(x_bis)
+    przyblizeniaFalsi.append(x_falsi)
     if rysuj_wykres:
-        wyk.wykres_funkcji_z_miejscami_zerowymi(f, a, b, x1, xf1, "Funkcja")
+        wyk.wykres_funkcji_z_miejscami_zerowymi(f, a, b, x_bis, x_falsi, "Funkcja")
 
 #wybór funkcji wcześniej był realizowany przez instukcję warunkową if, zastąpiono na słownik
 def wybranaFunkcja(wybor):
@@ -120,7 +120,7 @@ def menu():
     print("6. złozenie wielomianu i wykładniczej")
     print("7. złozenie wszystkich trzech\n")
     wyborFunkcji = int(input("WYBRANA FUNKCJA: "))
-    if (wyborFunkcji < 1 or wyborFunkcji > 8):
+    if (wyborFunkcji < 1 or wyborFunkcji > 7):
         print("Błąd: wpisano niepoprawny numer.")
         return
 
@@ -146,8 +146,14 @@ def menu():
 
     if (wyboruWarunku == 1):
         dokladnosc = float(input("Podaj dokladnosc: "))
+        if dokladnosc <= 0:
+            print("Błąd: dokładność musi być dodatnia.")
+            return
     elif (wyboruWarunku == 2):
         liczbaIter = int(input("Podaj liczbę iteracji: "))
+        if liczbaIter <= 0:
+            print("Błąd: liczba iteracji musi być dodatnia.")
+            return
 
     petla(wyboruWarunku, a, b, f, dokladnosc, liczbaIter)
     iterBis.clear()
