@@ -34,17 +34,17 @@ def zlozWielomianTryg(x):
 
 def zlozTrygWykl(x):
     #y = 3.14^(cos(x+6) + 0.5) - 2
-    y = wykladnicza(trygonometryczna(x))+3
+    y = wykladnicza(trygonometryczna(x)) + 3
     return y
 
 def zlozWielomianWykl(x):
-    #y = 3.14 do potęgi (3x^5 + 9x^2 - 20)
-    y = wykladnicza(horner(x, [3,0,0,9,0,-20],6))
+    #y = 3.14^(0.5X^5 + 4x^2) - 5
+    y = wykladnicza(horner(x, [0.5,0,0,4,0,0],6))
     return y
 
 def zlozWszystko(x):
-    #y = cos(3.14 do potęgi (6x^2 - 7))
-    y = trygonometryczna(wykladnicza(horner(x, [6,0,-7],3)))
+    #y = 3.14^(cos((0.5x^3 + 0.6x^2) + 6) + 0.5) - 2
+    y = wykladnicza(trygonometryczna(horner(x, [0.1, 0.6, 0, 0], 4))) + 3
     return y
 
 def bisekcja(f,a,b):

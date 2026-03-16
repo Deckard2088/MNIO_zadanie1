@@ -117,8 +117,8 @@ def menu():
     print("3. Wykładnicza: y = 3.14^(x) - 5")
     print("4. Złożenie wielomianu i trygonometrycznej: y = cos((0.5x^3 + 2x^2) + 6) + 0.5")
     print("5. Złozenie trygonometrycznej i wykładniczej: y = 3.14^(cos(x+6) + 0.5) - 2")
-    print("6. Złozenie wielomianu i wykładniczej: ")
-    print("7. Złozenie wszystkich trzech\n")
+    print("6. Złozenie wielomianu i wykładniczej: y = 3.14^(0.5X^5 + 4x^2) - 5")
+    print("7. Złozenie wszystkich trzech: y = 3.14^(cos((0.1x^3 + 0.6x^2) + 6) + 0.5) - 2\n")
     wyborFunkcji = int(input("WYBRANA FUNKCJA: "))
     if (wyborFunkcji < 1 or wyborFunkcji > 7):
         print("Błąd: wpisano niepoprawny numer.")
