@@ -1,6 +1,9 @@
 from numpy import cos
 
 
+EPS_ZERO = 1e-12
+
+
 #DEFINICJE PRZYKŁADOWE FUNKCJI
 #wielomian obliczany metodą hornera
 def horner(x, tablica_wspolczynnikow, dlugosc_tablicy):
@@ -49,28 +52,38 @@ def zlozWszystko(x):
     return y
 
 def bisekcja(f,a,b):
-    #x0 to przybliżenie miejsca zerowego, które wyznaczone jest z początkowych wartości a i b
-    x0 = (a+b)/2
-    #porównanie floata do zera inaczej?
-    if (f(x0) == 0):
-        return a, b, x0, x0
-    elif (f(x0)*f(b) < 0):
-        a = x0
-    elif (f(x0)*f(a) < 0):
-        b = x0
+    """Wykonuje jeden krok metody bisekcji i zwraca nowe (a, b, x)."""
+    x = (a + b) / 2
+    fx = f(x)
+    if abs(fx) <= EPS_ZERO:
+        return a, b, x
 
-    #x1 to przybliżenie po przejściu przez algorytm, jeśli pierwiastek został znaleziony to x0 = x1
-    x1 = (a+b)/2
-    return a,b,x0,x1
+    fa = f(a)
+    if fa * fx < 0:
+        b = x
+    else:
+        a = x
+
+    return a, b, x
 
 def regulaFalsi(f,a,b):
-    x0 = a - f(a)*(b-a)/(f(b)-f(a))
-    #porównanie floata do zera inaczej?
-    if (f(x0) == 0):
-        return a,b,x0,x0
-    elif (f(x0)*f(b) < 0):
-        a = x0
-    elif (f(x0)*f(a) < 0):
-        b = x0
-    x1 = a - f(a) * (b - a) / (f(b) - f(a))
-    return a,b,x0,x1
+    """Wykonuje jeden krok regula falsi i zwraca nowe (a, b, x)."""
+    fa = f(a)
+    fb = f(b)
+    mianownik = fb - fa
+    if abs(mianownik) <= EPS_ZERO:
+        x = (a + b) / 2
+        return a, b, x
+
+    # Klasyczny wzor regula falsi: przeciecie siecznej z osia OX.
+    x = a - fa * (b - a) / mianownik
+    fx = f(x)
+    if abs(fx) <= EPS_ZERO:
+        return a, b, x
+
+    if fa * fx < 0:
+        b = x
+    else:
+        a = x
+
+    return a, b, x
