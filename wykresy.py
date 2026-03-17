@@ -85,6 +85,8 @@ def wykres_zbieznosci(przybliżenia_bis, przybliżenia_rf):
      plt.legend()
      plt.grid(True, alpha=0.3)
      plt.tight_layout()
+     nazwa_pliku = f'wykres_zbieznosci_{datetime.now().strftime("%Y%m%d_%H%M%S")}.png'
+     plt.savefig(nazwa_pliku, dpi=150, bbox_inches='tight')
      plt.show()
 
 '''
@@ -136,4 +138,6 @@ def wykres_porownanie_iteracji(nazwy_eps, iteracje_bis, iteracje_rf):
      plt.legend()
      plt.grid(True, alpha=0.3, axis='y')
      plt.tight_layout()
+     nazwa_pliku = f'wykres_porownanie_iteracji_{datetime.now().strftime("%Y%m%d_%H%M%S")}.png'
+     plt.savefig(nazwa_pliku, dpi=150, bbox_inches='tight')
      plt.show()
