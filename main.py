@@ -91,7 +91,7 @@ def petla(warunek, a, b, f, nazwa, dokladnosc, liczbaIter, rysuj_wykres=True):
     if rysuj_wykres:
         wyk.wykres_funkcji_z_miejscami_zerowymi(f, a, b, x_bis, x_falsi, nazwa)
 
-#wybór funkcji wcześniej był realizowany przez instukcję warunkową if, zastąpiono na słownik
+#wybór funkcji jako słownik, gdzie kluczem jest numer funkcji, a wartością jest sama funkcja. 
 def wybranaFunkcja(wybor):
     funkcje = {
         1: alg.wielomian,
@@ -127,7 +127,6 @@ def menu():
     print("ZADANIE 1.")
     print("================================================\n")
     print("WYBIERZ FUNKCJĘ NIELINIOWĄ:")
-    #nazwy zamienić na konkretne funkcje (chyba)
     print("1. Wielomian: y = 2x^3 - 5x^2 + 2x")
     print("2. Trygonometryczna: y = cos(x+6) + 0.5")
     print("3. Wykładnicza: y = 3.14^(x) - 5")
@@ -184,9 +183,5 @@ def menu():
         # ładne jednolite formatowanie dla dokładności
         liczbEps.append(f"$10^{{-{i}}}$")
     wyk.wykres_porownanie_iteracji(liczbEps, iterBis, iterFalsi)
-'''
-    for i in range (1,10):
-        petla(2, a, b, f, dokladnosc, i)
-    wyk.wykres_zbieznosci(przyblizeniaBis, przyblizeniaFalsi)
-'''
+
 menu()

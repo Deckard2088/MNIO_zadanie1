@@ -1,3 +1,6 @@
+#Dawid Wachecki 2548901
+#Kacper Skoczylas 254864
+#Zadanie 1: metoda bisekcji, reguła falsi, wariant A
 import numpy as np
 import matplotlib.pyplot as plt
 from datetime import datetime
@@ -63,59 +66,8 @@ def wykres_funkcji_z_miejscami_zerowymi(f, a, b, zero_bis, zero_rf, nazwa_funkcj
     plt.show()
 
 
- #Dodatkowe wykresy - mogą się przydać może do jakiejs analizy do sprawka czy coś
 
-def wykres_zbieznosci(przybliżenia_bis, przybliżenia_rf):
-     """Porównanie zbieżności obu metod - przybliżenia w kolejnych iteracjach.
 
-     Parametry:
-         przybliżenia_bis  - lista przybliżeń z bisekcji
-         przybliżenia_rf   - lista przybliżeń z regula falsi
-     """
-     plt.figure(figsize=(10, 6))
-
-     plt.plot(range(1, len(przybliżenia_bis) + 1), przybliżenia_bis,
-              'ro-', label='Bisekcja', markersize=5)
-     plt.plot(range(1, len(przybliżenia_rf) + 1), przybliżenia_rf,
-              'g^-', label='Regula falsi', markersize=5)
-
-     plt.xlabel('Numer iteracji')
-     plt.ylabel('Przybliżenie x')
-     plt.title('Zbieżność metod - przybliżenia w kolejnych iteracjach')
-     plt.legend()
-     plt.grid(True, alpha=0.3)
-     plt.tight_layout()
-     nazwa_pliku = f'wykres_zbieznosci_{datetime.now().strftime("%Y%m%d_%H%M%S")}.png'
-     plt.savefig(nazwa_pliku, dpi=150, bbox_inches='tight')
-     plt.show()
-
-'''
-def wykres_bledu(przybliżenia_bis, przybliżenia_rf, wartosc_dokladna):
-     """Porównanie błędu bezwzględnego obu metod w kolejnych iteracjach - skala logarytmiczna.
-
-     Parametry:
-         przybliżenia_bis   - lista przybliżeń z bisekcji
-         przybliżenia_rf    - lista przybliżeń z regula falsi
-         wartosc_dokladna   - wartość referencyjna x* (dokładne miejsce zerowe)
-     """
-     bledy_bis = [abs(x - wartosc_dokladna) for x in przybliżenia_bis]
-     bledy_rf = [abs(x - wartosc_dokladna) for x in przybliżenia_rf]
-
-     plt.figure(figsize=(10, 6))
-
-     plt.semilogy(range(1, len(bledy_bis) + 1), bledy_bis,
-                  'ro-', label='Bisekcja', markersize=5)
-     plt.semilogy(range(1, len(bledy_rf) + 1), bledy_rf,
-                  'g^-', label='Regula falsi', markersize=5)
-
-     plt.xlabel('Numer iteracji')
-     plt.ylabel('Błąd bezwzględny |x_i − x*|')
-     plt.title('Porównanie błędu bezwzględnego obu metod (skala logarytmiczna)')
-     plt.legend()
-     plt.grid(True, alpha=0.3)
-     plt.tight_layout()
-     plt.show()
-'''
 def wykres_porownanie_iteracji(nazwy_eps, iteracje_bis, iteracje_rf):
      """Wykres słupkowy - porównanie liczby iteracji dla różnych dokładności.
 

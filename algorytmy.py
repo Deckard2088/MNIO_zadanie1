@@ -1,8 +1,11 @@
+#Dawid Wachecki 254890
+#Kacper Skoczylas 254864
+#Zadanie 1: metoda bisekcji, reguła falsi, wariant A
 from numpy import cos
 
 EPS_ZERO = 1e-12
 
-#DEFINICJE PRZYKŁADOWE FUNKCJI
+
 #wielomian obliczany metodą hornera
 def horner(x, tablica_wspolczynnikow, dlugosc_tablicy):
     #Czyli zamiast np. y = 4*x*x*x + 3*x + 5 podaje się funkcje wielomian z argumentami: x, [4,0,3,5], 4
@@ -11,13 +14,11 @@ def horner(x, tablica_wspolczynnikow, dlugosc_tablicy):
         y = tablica_wspolczynnikow[i] + x * y
     return y
 
-#przykładowy wielomian
 def wielomian(x):
     #y = 2x^3 - 5x^2 + 2x
     y = horner(x, [2,-5,2,0],4)
     return y
 
-#skoro to taka prosta funkcja to może ją wywalić? i po prostu import math dać? jak tak to te złożone może też? albo zmienić na inne
 def trygonometryczna(x):
     y = cos(x+6) + 0.5
     return y
@@ -71,7 +72,6 @@ def regulaFalsi(f,a,b):
         x = (a + b) / 2
         return a, b, x
 
-    # Klasyczny wzor regula falsi: przeciecie siecznej z osia OX.
     x = a - fa * (b - a) / mianownik
     fx = f(x)
     if abs(fx) <= EPS_ZERO:
